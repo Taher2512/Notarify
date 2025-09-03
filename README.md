@@ -2,6 +2,10 @@
 
 A minimal digital notary system built with Next.js, Express.js, and pdf-lib. This system allows notaries to upload PDF documents, apply digital signatures and stamps, and download the signed documents with audit trails.
 
+## Demo Video
+https://github.com/user-attachments/assets/519bc5cd-7dbf-4217-a70c-6056d5c4bc81
+
+
 ## Features
 
 - **JWT Authentication**: Secure notary login system
