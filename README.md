@@ -1,135 +1,156 @@
-# Turborepo starter
+# Notarify - Digital Notary System
 
-This Turborepo starter is maintained by the Turborepo core team.
+A minimal digital notary system built with Next.js, Express.js, and pdf-lib. This system allows notaries to upload PDF documents, apply digital signatures and stamps, and download the signed documents with audit trails.
 
-## Using this example
+## Features
 
-Run the following command:
+- **JWT Authentication**: Secure notary login system
+- **PDF Upload**: Upload PDF documents for notarization
+- **Digital Signing**: Apply notary signatures and stamps to documents
+- **Audit Trail**: Track all notarization activities with tamper-proof hashes (SHA256)
+- **Document Verification**: Verify document authenticity using cryptographic hashes
+- **Download**: Download signed and stamped PDF documents
 
-```sh
-npx create-turbo@latest
-```
+## Tech Stack
 
-## What's inside?
+- **Frontend**: Next.js 15, React 19, TailwindCSS
+- **Backend**: Express.js, Node.js
+- **PDF Processing**: pdf-lib
+- **Authentication**: JWT (jsonwebtoken)
+- **File Upload**: Multer
+- **Build System**: Turborepo
+- **Package Manager**: Bun
+
+## Project Structure
 
 This Turborepo includes the following packages/apps:
 
 ### Apps and Packages
 
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
+- `apps/web`: Next.js frontend application
+- `apps/backend`: Express.js API server
+- `@repo/ui`: Shared React component library
+- `@repo/eslint-config`: ESLint configurations
+- `@repo/typescript-config`: TypeScript configurations
 
 Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
-### Utilities
+## Prerequisites
 
-This Turborepo has some additional tools already setup for you:
+Before running the application, ensure you have the following installed:
 
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Bun](https://bun.sh/) (latest version recommended)
 
-### Build
+## Installation
 
-To build all apps and packages, run the following command:
+1. Clone the repository:
 
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build
-yarn dlx turbo build
-pnpm exec turbo build
+```bash
+git clone <repository-url>
+cd notarify
 ```
 
-You can build a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+2. Install dependencies:
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo build --filter=docs
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo build --filter=docs
-yarn exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+```bash
+bun install
 ```
 
-### Develop
+## Running the Application
 
-To develop all apps and packages, run the following command:
+### Method 1: Using Turbo (Recommended)
 
-```
-cd my-turborepo
+Run both frontend and backend simultaneously:
 
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev
-yarn exec turbo dev
-pnpm exec turbo dev
+```bash
+npx turbo run dev
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters):
+This will start:
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo dev --filter=web
+- Frontend (Next.js) on `http://localhost:3000`
+- Backend (Express.js) on `http://localhost:3001`
 
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo dev --filter=web
-yarn exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+### Method 2: Running Individually
 
-### Remote Caching
+#### Start the Backend:
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo login
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo login
-yarn exec turbo login
-pnpm exec turbo login
+```bash
+cd apps/backend
+bun index.ts
 ```
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+The backend API will be available at `http://localhost:3001`
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+#### Start the Frontend (in a new terminal):
 
-```
-# With [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation) installed (recommended)
-turbo link
-
-# Without [global `turbo`](https://turborepo.com/docs/getting-started/installation#global-installation), use your package manager
-npx turbo link
-yarn exec turbo link
-pnpm exec turbo link
+```bash
+cd apps/web
+bun dev
 ```
 
-## Useful Links
+The frontend will be available at `http://localhost:3000`
 
-Learn more about the power of Turborepo:
+## Demo Credentials
 
-- [Tasks](https://turborepo.com/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.com/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.com/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.com/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.com/docs/reference/configuration)
-- [CLI Usage](https://turborepo.com/docs/reference/command-line-reference)
+The system includes demo notary accounts for testing:
+
+- **Notary 1**
+  - Username: `notary1`
+  - Password: `password123`
+  - Name: User 1
+
+- **Notary 2**
+  - Username: `notary2`
+  - Password: `password456`
+  - Name: User 2
+
+## Usage
+
+1. **Login**: Use one of the demo credentials to access the notary dashboard
+2. **Upload PDF**: Select and upload a PDF document (max 10MB)
+3. **Sign Document**: Apply your notary signature and stamp to the document
+4. **Download**: Download the signed PDF with embedded signature and stamp
+5. **Audit Trail**: View the complete audit trail of all notarization activities
+
+## API Endpoints
+
+### Authentication
+
+- `POST /api/login` - Notary authentication
+
+### Document Management
+
+- `POST /api/upload` - Upload PDF document
+- `POST /api/sign/:documentId` - Sign uploaded document
+- `GET /api/download/:filename` - Download signed document
+- `POST /api/verify` - Verify document authenticity
+
+### Audit
+
+- `GET /api/audit` - Get audit trail
+
+## Security Features
+
+- **JWT Authentication**: Secure token-based authentication
+- **File Validation**: Only PDF files are accepted
+- **Tamper-Proof Hashing**: SHA256 hashes for document verification
+- **Audit Trail**: Complete logging of all notarization activities
+- **Authorization**: Only authenticated notaries can sign documents
+
+## Custom Signature and Stamp Images
+
+To use custom signature and stamp images:
+
+1. Create an `assets` folder in the backend directory:
+
+```bash
+mkdir apps/backend/assets
+```
+
+2. Add your images:
+   - `sample-signature.png` - Notary signature image
+   - `sample-stamp.png` - Notary stamp image
+
+The system will automatically use these images if available, otherwise it will fall back to text-based signatures and stamps.
